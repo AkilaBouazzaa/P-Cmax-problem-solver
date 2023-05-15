@@ -132,7 +132,6 @@
 
 # # Start GUI event loop
 # root.mainloop()
-
 import tkinter as tk
 from tkinter import filedialog
 import matplotlib.pyplot as plt
@@ -194,52 +193,53 @@ def pcmax(n1, m1, k):
 
     
     plot_schedule(abk, machines,resultri)
+    
     makespan = max(machinesTimes)
     return makespan
     
 # plot the gantt chart
 def plot_schedule(abk, machines, resultri):
-    num_tasks = len(abk)
-    num_machines = len(machines)
-    colors = plt.get_cmap('tab20')(range(num_tasks))
-    plt.figure(figsize=(10, 5))
-    for m in range(num_machines):
-        y = num_machines - m
-        for i, task in enumerate(machines[m]):
-            x = resultri[task]
-            plt.barh(y, x, left=sum([resultri[t] for t in machines[m][:i]]), color=colors[abk.index(task)], align='center', edgecolor='white')
-    plt.yticks(range(1, num_machines+1), ['Machine {}'.format(i) for i in range(1, num_machines+1)])
-    plt.xlabel('Time')
-    plt.ylabel('Machine')
-    plt.title('Optimal Job Schedule')
-    plt.show()
-       
-# Function to print schedule to text file
-def print_schedule(n1, m1, k):
-    n = int(n1)
-    m = int(m1)
-    # ... your existing code for calculating the schedule ...
-    schedule = "Example schedule"  # Replace with your actual schedule
-    file_path = filedialog.asksaveasfilename(defaultextension=".txt")
-    with open(file_path, 'w') as f:
-        f.write("Optimal permutation: {}\n".format(machinesTimes))
-        f.write("Optimal cmax: {}\n".format(makespan))
-        f.write("Job assignments:\n")
-        for i, assignments in enumerate(machines):
-            f.write("Machine {}: {}\n".format(i+1, assignments))
-
-# # Function to print schedule to text file
+        num_tasks = len(abk)
+        num_machines = len(machines)
+        colors = plt.get_cmap('tab20')(range(num_tasks))
+        plt.figure(figsize=(10, 5))
+        for m in range(num_machines):
+            y = num_machines - m
+            for i, task in enumerate(machines[m]):
+                x = resultri[task]
+                plt.barh(y, x, left=sum([resultri[t] for t in machines[m][:i]]), color=colors[abk.index(task)], align='center', edgecolor='white')
+        plt.yticks(range(1, num_machines+1), ['Machine {}'.format(i) for i in range(1, num_machines+1)])
+        plt.xlabel('Time')
+        plt.ylabel('Machine')
+        plt.title('Optimal Job Schedule')
+        plt.show()
+        
+    # Function to print schedule to text file
 # def print_schedule(n1, m1, k):
-#     # Insert your schedule printing code here
-#     file_path = "path/to/file.txt"
-#file = open(file_path, "w")
+#         n = int(n1)
+#         m = int(m1)
+#         # ... your existing code for calculating the schedule ...
+#         schedule = "Example schedule"  # Replace with your actual schedule
+#         file_path = filedialog.asksaveasfilename(defaultextension=".txt")
+#         with open(file_path, 'w') as f:
+#             f.write("Optimal permutation: {}\n".format(machinesTimes))
+#             f.write("Optimal cmax: {}\n".format(makespan))
+#             f.write("Job assignments:\n")
+#             for i, assignments in enumerate(machines):
+#                 f.write("Machine {}: {}\n".format(i+1, assignments))
 
-#random_values = [1, 2, 3, 4, 5]  # Replace with your actual list of random values
+    # # Function to print schedule to text file
+    # def print_schedule(n1, m1, k):
+    #     # Insert your schedule printing code here
+    #     file_path = "path/to/file.txt"
+    #file = open(file_path, "w")
 
-#for value in random_values:
-    #""file.write(str(value) + "\n")
+    #random_values = [1, 2, 3, 4, 5]  # Replace with your actual list of random values
 
-#file.close()
+    #for value in random_values:
+        #""file.write(str(value) + "\n")
+
+    #file.close()
 
 
 
@@ -287,7 +287,7 @@ def calculate():
 
 calculate_button.grid(row=3, column=2)
 print_button = tk.Button(root, text="Print Schedule to File",
-                          command=lambda: print_schedule(int(n1_entry.get()),
+                          command=lambda: plot_schedule(int(n1_entry.get()),
                                                          int(m1_entry.get()),
                                                          int(k_entry.get())))
 print_button.grid(row=3, column=1)
